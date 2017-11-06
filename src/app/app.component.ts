@@ -3,8 +3,12 @@ import { Api } from "./base/api";
 import { Resource } from "./base/resource";
 import { HttpClient } from "@angular/common/http";
 
-interface User{
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
 
+interface User{
+  id:number
 }
 
 class UsersApi extends Api<User>{
@@ -27,7 +31,7 @@ class UserResource extends Resource<User>{ }
 export class AppComponent {
   title = 'app';
   api
-  user:User = {}
+  user:Partial<User> = {}
   
   constructor(private _http:HttpClient){
     this.api = new UsersApi(_http)
