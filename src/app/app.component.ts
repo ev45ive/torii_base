@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Api } from "./base/api";
 import { Resource } from "./base/resource";
 import { HttpClient } from "@angular/common/http";
+import { UsersService } from "./users/users.service";
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
@@ -33,29 +34,11 @@ export class AppComponent {
   api
   user:Partial<User> = {}
   
-  constructor(private _http:HttpClient){
-    this.api = new UsersApi(_http)
+  constructor(){
+
   }
 
-  create(data){
-    var newUser = new UserResource(this.api)
-    newUser.save(data).subscribe(user =>{
-      this.user = user
-    })
-  }
 
-  fetch(id){
-    var user = new UserResource(this.api, id)
-    user.fetch().subscribe(user =>{
-      this.user = user
-    })
-  }
 
-  save(data){
-    var newUser = new UserResource(this.api)
-    newUser.save(data).subscribe(user =>{
-      this.user = user
-    })
-  }
 
 }

@@ -14,9 +14,8 @@ type Partial<T> = {
 @Injectable()
 export class Api<T> {
 
-    constructor(protected _http:HttpClient){ }
-
-    protected _url
+    constructor(protected _http:HttpClient, protected _url){ }
+    
 
     fetchAll():Observable<T[]>{
         return this._http.get<T[]>(this._url)

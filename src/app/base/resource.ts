@@ -4,14 +4,16 @@ import { Api } from "./api";
 
 import 'rxjs/add/operator/do'
 
-export class Resource<T extends {id:number}> {
+export class Resource<T> {
 
-    constructor(
-        protected _api:Api<T>,
-        protected id?:number, 
-        ){
+    data
+    constructor(protected _api:Api<T>,protected id?:number){
+        if(id){
+            this.data = {
+                id
+            }
+        }
     }
-    data:T
 
     fetch(){
         return this._api.fetchOne(this.id)
@@ -22,7 +24,7 @@ export class Resource<T extends {id:number}> {
 
     save(data:T):Observable<T>{
         this.data = data
-        
+
         if(this.data['id']){
             return this._api.update(this.data['id'], this.data)
         }else{
